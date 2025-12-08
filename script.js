@@ -47,3 +47,25 @@ function reveal(){
         }
     }
 }
+
+// FAQ touch/click support: toggle open class on touch devices or when clicked
+(function(){
+    const faqItems = document.querySelectorAll('.faq-item');
+    if(!faqItems || faqItems.length === 0) return;
+
+    const isTouch = ('ontouchstart' in window) || window.matchMedia('(hover: none)').matches;
+
+    faqItems.forEach(item => {
+        const q = item.querySelector('.faq-question');
+        if(!q) return;
+
+        q.addEventListener('click', (e) => {
+            if(isTouch){
+                // close others
+                faqItems.forEach(i => { if(i !== item) i.classList.remove('open'); });
+                // toggle this one
+                item.classList.toggle('open');
+            }
+        });
+    });
+})();
