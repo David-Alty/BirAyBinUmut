@@ -69,3 +69,42 @@ function reveal(){
         });
     });
 })();
+
+// Make entire footer contact boxes clickable (open the inner anchor)
+(function(){
+    const contactLines = document.querySelectorAll('.footer-center .contact-line');
+    if(!contactLines || contactLines.length === 0) return;
+
+    contactLines.forEach(line => {
+        const link = line.querySelector('a.contact-icon');
+        if(!link) return;
+
+        // make focusable for keyboard users
+        if(!line.hasAttribute('tabindex')) line.setAttribute('tabindex','0');
+
+        // click anywhere on the line (except when clicking the anchor itself) opens the link
+        line.addEventListener('click', (e) => {
+            // if the clicked element is the anchor (or inside it), let the anchor handle it
+            const clickedAnchor = e.target.closest('a');
+            if(clickedAnchor && clickedAnchor.classList.contains('contact-icon')) return;
+
+            const href = link.getAttribute('href');
+            const target = link.getAttribute('target');
+            if(!href) return;
+
+            if(target === '_blank') {
+                window.open(href, '_blank', 'noopener');
+            } else {
+                window.location.href = href;
+            }
+        });
+
+        // Keyboard: Enter or Space activates the link
+        line.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                link.click();
+            }
+        });
+    });
+})();

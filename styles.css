@@ -419,6 +419,28 @@ footer {
     text-align: center;
 }
 
+.footer-center .contact-line {
+    cursor: pointer;
+    will-change: transform;
+}
+
+/* gentle up-down bob animation while hovered */
+@keyframes footer-bob {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+
+.footer-center .contact-line:hover {
+    animation: footer-bob 3.5s ease-in-out infinite;
+}
+
+/* keep animations off for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .footer-center .contact-line:hover { animation: none; transform: none; }
+    .footer-center .contact-icon { transition: none; }
+}
+
 .footer-center .contact-icon {
     display: inline-flex;
     align-items: center;
@@ -429,7 +451,7 @@ footer {
     color: #000;
     background: rgba(0,0,0,0.05);
     text-decoration: none;
-    transition: background 160ms ease, transform 120ms ease;
+    transition: background 420ms ease, transform 420ms ease, color 420ms ease;
     flex-shrink: 0;
 }
 
@@ -440,6 +462,11 @@ footer {
 .footer-center .contact-icon.whatsapp:hover { background: #25D366; color: #fff; transform: scale(1.1); }
 .footer-center .contact-icon.instagram:hover { background: linear-gradient(45deg,#f58529 0%,#dd2a7b 30%,#8134af 60%,#515bd4 100%); color: #fff; transform: scale(1.1); }
 .footer-center .contact-icon.email:hover { background: #1A73E8; color: #fff; transform: scale(1.1); }
+
+/* Also change icon colors when the whole contact-line is hovered */
+.footer-center .contact-line:hover .contact-icon.whatsapp { background: #25D366; color: #fff; }
+.footer-center .contact-line:hover .contact-icon.instagram { background: linear-gradient(45deg,#f58529 0%,#dd2a7b 30%,#8134af 60%,#515bd4 100%); color: #fff; }
+.footer-center .contact-line:hover .contact-icon.email { background: #1A73E8; color: #fff; }
 
 @media screen and (max-width: 680px) {
     .footer-center { flex-direction: column; align-items: center; }
