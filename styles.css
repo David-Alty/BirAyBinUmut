@@ -362,7 +362,7 @@ footer {
 .footer-main {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* center footer content now that left column removed */
     gap: 20px;
 }
 
@@ -415,7 +415,9 @@ footer {
     padding: 10px 16px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    min-width: 280px;
+    flex: 1 1 0; /* distribute space evenly among contact items */
+    max-width: 420px; /* avoid overly wide boxes on very large screens */
+    min-width: 220px; /* keep readable on narrow containers */
     text-align: center;
 }
 
@@ -464,13 +466,13 @@ footer {
 .footer-center .contact-icon.email:hover { background: #1A73E8; color: #fff; transform: scale(1.1); }
 
 /* Also change icon colors when the whole contact-line is hovered */
-.footer-center .contact-line:hover .contact-icon.whatsapp { background: #25D366; color: #fff; }
+.footer-center .contact-line:hover .contact-icon.whatsapp { color: #fff; animation: whatsapp-seq 0.9s ease forwards; }
 .footer-center .contact-line:hover .contact-icon.instagram { background: linear-gradient(45deg,#f58529 0%,#dd2a7b 30%,#8134af 60%,#515bd4 100%); color: #fff; }
 .footer-center .contact-line:hover .contact-icon.email { background: #1A73E8; color: #fff; }
 
 @media screen and (max-width: 680px) {
-    .footer-center { flex-direction: column; align-items: center; }
-    .footer-center .contact-line { min-width: 250px; }
+    .footer-center { flex-direction: column; align-items: stretch; gap: 12px; }
+    .footer-center .contact-line { flex: none; width: 100%; max-width: 720px; min-width: 0; }
 }
 
 
@@ -556,6 +558,18 @@ footer {
 
 .sticky-item.whatsapp { background: #128C7E; }
 .sticky-item.whatsapp:hover { background: #25D366; box-shadow: 0 8px 22px rgba(37,211,102,0.18); }
+
+/* WhatsApp two-step hover: quick lighter flash then settle to brand green */
+@keyframes whatsapp-seq {
+    0% { background: #dffbee; }
+    40% { background: #aef7d1; }
+    100% { background: #25D366; }
+}
+
+/* apply sequence on sticky whatsapp */
+.sticky-item.whatsapp:hover {
+    animation: whatsapp-seq 0.9s ease forwards;
+}
 
 .sticky-item.instagram { background: linear-gradient(45deg,#f58529 0%,#dd2a7b 30%,#8134af 60%,#515bd4 100%); }
 .sticky-item.instagram:hover { filter: brightness(1.05); box-shadow: 0 8px 22px rgba(81,91,212,0.18); }
