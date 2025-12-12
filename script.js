@@ -108,3 +108,22 @@ function reveal(){
         });
     });
 })();
+
+// Copy IBAN functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const copyIcons = document.querySelectorAll('.copy-icon');
+    copyIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+            const iban = this.getAttribute('data-iban');
+            const text = this.getAttribute('data-text');
+            const copyText = iban || text;
+            if (copyText) {
+                navigator.clipboard.writeText(copyText).then(function() {
+                    alert('Kopyalandı: ' + copyText);
+                }).catch(function(err) {
+                    console.error('Kopyalama başarısız: ', err);
+                });
+            }
+        });
+    });
+});

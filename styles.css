@@ -352,6 +352,17 @@ details[open] summary {
     margin-top: 5px;
 }
 
+.copy-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+.copy-icon:hover {
+    color: #fff;
+}
+
 /* --- FOOTER --- */
 footer {
     background: #000;
@@ -712,4 +723,53 @@ footer {
     margin: 0;
     font-size: 15px;
     line-height: 1.6;
+}
+
+/* --- GENEL AYARLAR (Tüm kutular için) --- */
+.consult-box.reveal.active {
+    position: relative;  /* Görseli içeri hapsetmek için şart */
+    z-index: 1;          /* Yazıyı en öne alır */
+    overflow: hidden;    /* Taşan görseli kırpar */
+    background: transparent; /* Mevcut beyaz arka planı kaldırır */
+    border-radius: 15px; /* Köşeleri yumuşatır (İsteğe bağlı) */
+    color: #000;         /* Yazı rengini koyu yapar (resim açıksa) */
+}
+
+/* --- ORTAK ARKA PLAN AYARLARI (::before) --- */
+.consult-box.reveal.active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* ŞEFFAFLIK AYARI: Görseli soluklaştırmak için burayı değiştir (0.1 - 0.3 arası iyidir) */
+    opacity: 0.15; 
+    
+    z-index: -1; /* Görseli yazının arkasına atar */
+    transition: transform 0.5s ease; /* Mouse ile üzerine gelince efekt için */
+}
+
+/* --- KUTUYA ÖZEL RESİMLER --- */
+
+/* 1. Kutu: Aile Danışmanlığı */
+/* HTML yapında ilk sırada bu varsa bunu kullanır */
+.consult-box.reveal.active:nth-of-type(1)::before {
+    background-image: url('imgs/family.png');
+}
+
+/* 2. Kutu: Kariyer Danışmanlığı */
+/* HTML yapında ikinci sırada bu varsa bunu kullanır */
+.consult-box.reveal.active:nth-of-type(2)::before {
+    background-image: url('imgs/carieer.png');
+}
+
+/* --- İSTEĞE BAĞLI: HOVER EFEKTİ --- */
+/* Mouse ile kutunun üzerine gelince resim hafifçe yakınlaşır */
+.consult-box.reveal.active:hover::before {
+    transform: scale(1.1);
 }
